@@ -31,6 +31,18 @@ public class GenerateMojo extends AbstractApikanaMojo {
     private String basePath;
 
     /**
+     * {@code --generate1stGenPaths} parameter for apikana.
+     */
+    @Parameter( property="apikana.generate-1st-gen-paths")
+    private String generate1stGenPaths;
+
+    /**
+     * {@code --generate2ndGenPaths} parameter for apikana.
+     */
+    @Parameter( property="apikana.generate-2nd-gen-paths")
+    private String generate2ndGenPaths;
+
+    /**
      * {@code --generate3rdGenPaths} parameter for apikana.
      */
     @Parameter( property="apikana.generate-3rd-gen-paths")
@@ -197,6 +209,12 @@ public class GenerateMojo extends AbstractApikanaMojo {
         }
         if( basePath != null && !"null".equals(basePath) ){
             cmd.add( "--basePath="+ basePath );
+        }
+        if( generate1stGenPaths != null && !"null".equals(generate1stGenPaths) ){
+            cmd.add( "--generate1stGenPaths="+generate1stGenPaths );
+        }
+        if( generate2ndGenPaths != null && !"null".equals(generate2ndGenPaths) ){
+            cmd.add( "--generate2ndGenPaths="+generate2ndGenPaths );
         }
         if( generate3rdGenPaths != null && !"null".equals(generate3rdGenPaths) ){
             cmd.add( "--generate3rdGenPaths="+generate3rdGenPaths );
