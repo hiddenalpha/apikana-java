@@ -210,14 +210,14 @@ public class GenerateMojo extends AbstractApikanaMojo {
         if( basePath != null && !"null".equals(basePath) ){
             cmd.add( "--basePath="+ basePath );
         }
-        if( generate1stGenPaths != null && !"null".equals(generate1stGenPaths) ){
-            cmd.add( "--generate1stGenPaths="+generate1stGenPaths );
+        if( boolArgIsSet(generate1stGenPaths) ){
+            cmd.add( "--generate1stGenPaths="+ encodeArgAsNonNullBoolean(generate1stGenPaths) );
         }
-        if( generate2ndGenPaths != null && !"null".equals(generate2ndGenPaths) ){
-            cmd.add( "--generate2ndGenPaths="+generate2ndGenPaths );
+        if( boolArgIsSet(generate2ndGenPaths) ){
+            cmd.add( "--generate2ndGenPaths="+ encodeArgAsNonNullBoolean(generate2ndGenPaths) );
         }
-        if( generate3rdGenPaths != null && !"null".equals(generate3rdGenPaths) ){
-            cmd.add( "--generate3rdGenPaths="+generate3rdGenPaths );
+        if( boolArgIsSet(generate3rdGenPaths) ){
+            cmd.add( "--generate3rdGenPaths="+ encodeArgAsNonNullBoolean(generate3rdGenPaths) );
         }
         final String cmdLine = cmd.stream().collect(Collectors.joining(" "));
         if (global) {
@@ -228,6 +228,18 @@ public class GenerateMojo extends AbstractApikanaMojo {
         } else {
             executeFrontend("npm", configuration(element("arguments", npmOptions() + "run " + cmdLine)));
         }
+    }
+
+    private boolean boolArgIsSet( String argValue ) {
+//        System.out.println( "------> '"+argValue+"' length "+(argValue==null?"NaN":argValue.length())+"" ); // TODO: Drop that line.
+        return argValue != null && !argValue.isEmpty();
+    }
+
+    private String encodeArgAsNonNullBoolean( String argValue ) {
+        return ( argValue != null && !"".equalsIgnoreCase(argValue) && !"FALSE".equalsIgnoreCase(argValue) )
+                ? "true"
+                : "false"
+        ;
     }
 
     private String logLevel() {
