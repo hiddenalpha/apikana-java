@@ -231,12 +231,11 @@ public class GenerateMojo extends AbstractApikanaMojo {
     }
 
     private boolean boolArgIsSet( String argValue ) {
-//        System.out.println( "------> '"+argValue+"' length "+(argValue==null?"NaN":argValue.length())+"" ); // TODO: Drop that line.
         return argValue != null && !argValue.isEmpty();
     }
 
     private String encodeArgAsNonNullBoolean( String argValue ) {
-        return ( argValue != null && !"".equalsIgnoreCase(argValue) && !"FALSE".equalsIgnoreCase(argValue) )
+        return ( argValue != null && !argValue.isEmpty() && !"FALSE".equalsIgnoreCase(argValue) )
                 ? "true"
                 : "false"
         ;
